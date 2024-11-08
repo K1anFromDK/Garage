@@ -57,13 +57,15 @@ function OpenGarage(garageName, garage)
                 },
                -- progress = vehicleData.tankHealth/10,
                 onSelect = function()
-                    if spawnedvehicle == true then
+                    if spawnedvehicle then
                         TriggerEvent('ox_lib:notify', { title = 'Du har en bil ude!', type = 'error', position = 'top'})
-                    else
-                    SpawnVehicleInParkingLot(vehicle.parkinglot, vehicle.parkingspace, vehicleData.model, vehicleData)
-                    TaskWarpPedIntoVehicle(PlayerPedId(), vehicleName, -1)
-                    TriggerEvent('ox_lib:notify', { title = 'Din ' ..vehicleName.. ' er spawnet', type = 'success', position = 'top'})
-                    spawnedvehicle = true
+                    elseif not spawnedvehicle then
+                        SpawnVehicleInParkingLot(vehicle.parkinglot, vehicle.parkingspace, vehicleData.model, vehicleData)
+                        TaskWarpPedIntoVehicle(PlayerPedId(), vehicleName, -1)
+                        TriggerEvent('ox_lib:notify', { title = 'Din ' ..vehicleName.. ' er spawnet', type = 'success', position = 'top'})
+                        spawnedvehicle = true
+                        else
+                            lib.notify({description = 'Der er fejl i scriptet', type = 'error'})
                     end
             end
             }
